@@ -1,0 +1,1 @@
+export type RGBPixel = [number, number, number];
