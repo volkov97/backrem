@@ -10,7 +10,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "backrem": "^1.0.0"
+  "dependencies": {},
+  "devDependencies": {
+    "backrem": "^1.0.1"
   }
 }
