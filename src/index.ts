@@ -1,4 +1,5 @@
 import { performance } from "perf_hooks";
+import { ReadableStreamBuffer } from "stream-buffers";
 
 import { deltaE } from "./utils/deltaE";
 import { getRawFromBuffer } from "./utils/getRawFromBuffer";
@@ -41,7 +42,7 @@ export const replaceBackground = async (
         newPixels.push(
           backgroundImageRaw.data[startIndex],
           backgroundImageRaw.data[startIndex + 1],
-          backgroundImageRaw.data[startIndex + 2],
+          backgroundImageRaw.data[startIndex + 2]
         );
       } else {
         newPixels.push(pixel[0], pixel[1], pixel[2]);
@@ -51,9 +52,18 @@ export const replaceBackground = async (
 
   console.log("c", performance.now());
 
-  return await createOutputBuffer(
+  const resultBuffer = await createOutputBuffer(
     Uint8Array.from(newPixels),
     targetImageRaw.info.width,
     targetImageRaw.info.height
   );
+
+  const readable = new ReadableStreamBuffer({
+    frequency: 10,
+    chunkSize: 2048,
+  });
+
+  readable.put(resultBuffer);
+
+  return readable;
 };
