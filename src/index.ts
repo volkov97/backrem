@@ -1,4 +1,4 @@
-import { performance } from "perf_hooks";
+// import { performance } from "perf_hooks";
 import { ReadableStreamBuffer } from "stream-buffers";
 
 import { deltaE } from "./utils/deltaE";
@@ -24,7 +24,7 @@ export const replaceBackground = async (
     );
   }
 
-  console.log("b", performance.now());
+  // console.log("b", performance.now());
 
   const newPixels: number[] = [];
 
@@ -50,7 +50,7 @@ export const replaceBackground = async (
     }
   }
 
-  console.log("c", performance.now());
+  // console.log("c", performance.now());
 
   const resultBuffer = await createOutputBuffer(
     Uint8Array.from(newPixels),

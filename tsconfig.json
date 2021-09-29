@@ -2,10 +2,16 @@
     "compilerOptions": {
         "target": "es5",
         "module": "commonjs",
+        "outDir": "build",
         "lib": [
             "esnext"
         ],
         "esModuleInterop": true,
-        "strict": true
-    }
+        "strict": true,
+        "rootDir": "src",
+        "declaration": true
+    },
+    "include": [
+        "src"
+    ]
 }
