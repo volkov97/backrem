@@ -9,6 +9,7 @@
   },
   "scripts": {
     "start": "ts-node test/test",
+    "deploy": "rm -rf build && npm run typescript && npm publish",
     "typescript": "tsc"
   },
   "keywords": [],
