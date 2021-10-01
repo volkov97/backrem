@@ -14,7 +14,7 @@ http
       path.resolve(__dirname, "./target/space.jpg")
     );
 
-    replaceBackground(catExample, spaceExample, [200, 50, 50], 3).then(
+    replaceBackground(catExample, spaceExample, [200, 50, 52], 0).then(
       (readableStream) => {
         // const writableStream = fs.createWriteStream(
         //   path.resolve(__dirname, "./result/result.jpg")
