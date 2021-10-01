@@ -12,6 +12,6 @@
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {
-    "backrem": "^1.0.3"
+    "backrem": "^1.0.4"
   }
 }

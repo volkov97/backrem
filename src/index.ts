@@ -6,12 +6,14 @@ import { getRawFromBuffer } from "./utils/getRawFromBuffer";
 import { areSameSize } from "./utils/areSameSize";
 import { streamToBuffer } from "./utils/streamToBuffer";
 import { createOutputBuffer } from "./utils/createOutputBuffer";
+import { isSameColor } from "./utils/isSameColor";
+import { RGBPixel } from "./types";
 
 export const replaceBackground = async (
   targetImageStream: NodeJS.ReadableStream,
   backgroundImageStream: NodeJS.ReadableStream,
   colorToReplace: [number, number, number] = [255, 255, 255],
-  threshold = 3
+  threshold = 0
 ) => {
   const [backgroundImageRaw, targetImageRaw] = await Promise.all([
     streamToBuffer(backgroundImageStream).then(getRawFromBuffer),
@@ -38,7 +40,11 @@ export const replaceBackground = async (
         targetImageRaw.data[startIndex + 2],
       ];
 
-      if (deltaE([pixel[0], pixel[1], pixel[2]], colorToReplace) < threshold) {
+      const needToReplacePixel = threshold === 0 ?
+        isSameColor(pixel as RGBPixel, colorToReplace) :
+        deltaE([pixel[0], pixel[1], pixel[2]], colorToReplace) < threshold;
+
+      if (needToReplacePixel) {
         newPixels.push(
           backgroundImageRaw.data[startIndex],
           backgroundImageRaw.data[startIndex + 1],
@@ -64,6 +70,8 @@ export const replaceBackground = async (
   });
 
   readable.put(resultBuffer);
+
+  readable.stop();
 
   return readable;
 };
